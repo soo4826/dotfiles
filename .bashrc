@@ -64,3 +64,7 @@ alias runku='sudo -u $USER ./autoku_cm.sh'
 # export ROS_MASTER_URI=http://192.168.1.102:11311 #(Perception IP)
 # export ROS_IP=192.168.1.102 #(Perception IP)
 # export ROS_HOSTNAME=192.168.1.102 #(Perception IP)
+
+# Configure ROS-Master, RMW(ROS2)
+alias ros-master='source ~/git/dotfiles/shell/ros-master/ros-master.sh'
+alias ros-rmw='source ~/git/dotfiles/shell/ros-rmw/ros-rmw.sh'
