@@ -32,9 +32,8 @@ set_other_master() {
 
 # Function to select IP address
 select_ip() {
-    IP_LIST=($1)
     PS3=$'\e[95mSelect a network interface: \e[0m'
-    select IP in "${IP_LIST[@]}"; do
+    select IP in "$@"; do
         if [[ -n $IP ]]; then
             echo $IP
             break
