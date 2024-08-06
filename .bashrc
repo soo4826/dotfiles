@@ -23,6 +23,13 @@ alias sd='source devel/setup.bash'
 alias si='source install/setup.bash'
 alias sb='source ~/.bashrc'
 alias gb='gedit ~/.bashrc'
+alias cb='code ~/.bashrc'
+
+# Tmux shortcut
+alias tl='tmux ls'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
+alias tk='tmux kill-session -t'
 
 # Conda shortcut
 alias ce='conda env list'
