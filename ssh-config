@@ -1,0 +1,92 @@
+Host *
+  # HostName server.ailab-web.kro.kr
+  IdentityFile C:\\Users\\supersu\\.ssh\\id_rsa
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Compression yes
+  ForwardAgent yes
+
+# AILab GPU Server (HYU)
+Host 3090-1
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2201
+
+Host 3090-2
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2202
+
+Host 3090-3
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2203
+
+Host 3090-4
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2204
+
+Host a6000
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2205
+  LocalForward localhost:6006 localhost:6006
+
+Host 1080tix2
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2206
+  LocalForward localhost:5000 localhost:5000
+
+Host 2080tix2
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2207
+
+Host 3080x4
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2208
+  
+# AILab WebServer (KONKUK)
+Host webserver
+  HostName service.ailab-web.kro.kr
+  User ailab
+
+# Orin
+Host Orin-1
+  HostName 192.168.0.50
+  User ailab
+
+# Xavier (RSCube)
+Host rscube
+  HostName 192.168.0.60
+  User nvidia
+
+# Jieun Alienware
+Host Jieun
+  HostName 192.168.0.48
+  User jieun
+
+# AILab 3080x4 GPU Slicing
+Host 3080x4-gpu0
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2220
+
+# AILab Summer Intern
+Host Intern-Team1
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2221
+
+Host Intern-Team2
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2222
+
+Host Intern-Team3
+  HostName server.ailab-web.kro.kr
+  User ailab
+  Port 2223
