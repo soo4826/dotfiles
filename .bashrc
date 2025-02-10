@@ -35,10 +35,21 @@ alias tk='tmux kill-session -t'
 alias ce='conda env list'
 alias ca='conda activate'
 
+# Pyenv setup & shortcut
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+alias pv='pyenv versions'
+alias pi='pyenv install '
+alias pil='pyenv install --list'
+alias pg='pyenv global '
+
+
 # NVIDIA shortcut
 alias ns='watch -d -n 0.1 nvidia-smi'
 alias gs='gpustat -i'
 alias cn='cat /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2'
+
 # Docker shortcut
 alias dp='docker ps -a'
 alias di='docker images'
@@ -75,3 +86,6 @@ alias runku='sudo -u $USER ./autoku_cm.sh'
 # Configure ROS-Master, RMW(ROS2)
 alias ros-master='source ~/git/dotfiles/shell/ros-master/ros-master.sh'
 alias ros-rmw='source ~/git/dotfiles/shell/ros-rmw/ros-rmw.sh'
+
+# system shortcut
+alias fd='find . -name 'bash

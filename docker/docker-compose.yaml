@@ -1,0 +1,82 @@
+services:
+  ros1-noetic:
+    image: ros1-noetic
+    build:
+      context: ./ros
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ros1-noetic
+        HOST_UID: $HOST_UID
+        HOST_GID: $HOST_GID
+        HOST_USER: $HOST_USER
+    container_name: ros1-noetic-container
+    user: $HOST_UID:$HOST_GID
+    volumes:
+      - .:/home/$HOST_USER/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.Xauthority:/home/$HOST_USER/.Xauthority
+      - $HOME/.ssh:/home/$HOST_USER/.ssh
+      - $HOME/.config:/home/$HOST_USER/.config
+      - $HOME/.gitconfig:/home/$HOST_USER/.gitconfig
+      - $HOME/.tmux.conf:/home/$HOST_USER/.tmux.conf
+      - /home/Dataset:/home/$HOST_USER/Dataset
+    working_dir: /home/$HOST_USER/workspace
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - TZ="Asia/Seoul"
+    privileged: true
+    network_mode: host
+    stdin_open: true
+    tty: true
+    ipc: host
+    pid: host
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              count: all
+
+  # openpcdet:
+  #   image: openpcdet-img
+  #   env_file:
+  #     - .env
+  #   build:
+  #     context: ./docker
+  #     dockerfile: Dockerfile
+  #     args:
+  #       BASE_IMAGE: openpcdet-img
+  #       HOST_UID: $HOST_UID
+  #       HOST_GID: $HOST_GID
+  #       HOST_USER: $HOST_USER
+  #   container_name: centerpoint-env
+  #   user: $HOST_UID:$HOST_GID
+  #   volumes:
+  #     - .:/home/$HOST_USER/OpenPCDet
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - $HOME/.ssh:/home/$HOST_USER/.ssh
+  #     - $HOME/.config:/home/$HOST_USER/.config
+  #     - $HOME/.gitconfig:/home/$HOST_USER/.gitconfig
+  #     - $HOME/Dataset:/Dataset
+  #   working_dir: /home/$HOST_USER/OpenPCDet
+  #   environment:
+  #     - DISPLAY=$DISPLAY
+  #     - QT_X11_NO_MITSHM=1
+  #     - TZ="Asia/Seoul"
+  #   privileged: true
+  #   network_mode: host
+  #   stdin_open: true
+  #   tty: true
+  #   ipc: host
+  #   pid: host
+  #   runtime: nvidia
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             capabilities: [gpu]
+  #             count: all
