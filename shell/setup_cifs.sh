@@ -11,7 +11,16 @@ FSTAB_BAK="/etc/fstab.bak"
 
 echo "Starting CIFS mount setup..."
 
-# 1. Create Samba Credential file
+# 1. Check and install cifs-utils if not present
+if ! dpkg -l | grep -q cifs-utils; then
+    echo "cifs-utils not found. Installing..."
+    sudo apt-get update
+    sudo apt-get install -y cifs-utils
+else
+    echo "cifs-utils is already installed."
+fi
+
+# 2. Create Samba Credential file
 # Ensure the directory exists
 sudo mkdir -p /etc/samba
 
@@ -24,17 +33,17 @@ EOF
 # Set permissions to root only for security
 sudo chmod 600 $CRED_FILE
 
-# 2. Create Mount Point
+# 3. Create Mount Point
 if [ ! -d "$MOUNT_POINT" ]; then
     echo "Creating mount point: $MOUNT_POINT"
     mkdir -p "$MOUNT_POINT"
 fi
 
-# 3. Backup /etc/fstab before modification
+# 4. Backup /etc/fstab before modification
 sudo cp /etc/fstab "$FSTAB_BAK"
 echo "Backup of /etc/fstab created at $FSTAB_BAK"
 
-# 4. Add entry to /etc/fstab if it doesn't exist
+# 5. Add entry to /etc/fstab if it doesn't exist
 FSTAB_ENTRY="//$SMB_IP/$SMB_SHARE $MOUNT_POINT cifs credentials=$CRED_FILE,iocharset=utf8,x-systemd.automount 0 0"
 
 if ! grep -q "//$SMB_IP/$SMB_SHARE" /etc/fstab; then
@@ -44,12 +53,12 @@ else
     echo "Entry already exists in /etc/fstab. Skipping..."
 fi
 
-# 5. Reload daemon and mount
+# 6. Reload daemon and mount
 echo "Reloading daemon and mounting..."
 sudo systemctl daemon-reload
 sudo mount -a
 
-# 6. Verify mount and remove backup if successful
+# 7. Verify mount and remove backup if successful
 if mountpoint -q "$MOUNT_POINT"; then
     echo "Mount successful! Removing backup file..."
     sudo rm "$FSTAB_BAK"
